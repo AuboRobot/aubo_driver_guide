@@ -1,0 +1,13 @@
+
+#手动启动Robot服务器
+cd /root/AuboRobot/RobotServer/bin
+./auboControllerServer | ./robotlog4
+
+#服务器日志存放路径
+/root/AuboRobot/RobotServer/bin/logfiles
+
+#判断服务器是否启动
+netstat -anl |grep 8899
+
+#手动启动远程服务
+/root/AuboRobot/Frp/frp_0.33.0_linux_amd64/frp_start.sh

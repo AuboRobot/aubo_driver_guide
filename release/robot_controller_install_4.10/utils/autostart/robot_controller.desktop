@@ -1,0 +1,9 @@
+[Desktop Entry]
+Exec=/root/AuboRobot/control/control.sh
+Name=aubo_controller
+Comment=aubo_controller
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Application
+Name[en_US]=robot_controller

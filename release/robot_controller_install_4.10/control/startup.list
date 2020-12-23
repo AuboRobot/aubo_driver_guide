@@ -1,0 +1,13 @@
+#######################################################
+### 脚本启动列表 ####
+
+#配置网卡中断
+EXEC services/sys_interrupt/interrupt_setting.sh
+
+#启动控制器程序
+EXEC RobotServer/bin/start.sh
+
+#监控程序
+#EXEC services/agent/agent_monitor.sh
+
+##########################end##########################

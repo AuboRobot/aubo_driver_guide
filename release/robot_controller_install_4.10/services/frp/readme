@@ -1,0 +1,8 @@
+
+执行该目录下的  frp_start.sh
+
+直接
+
+进入该目录  执行该命令   ./frpc -c ./frpc.ini
+
+
