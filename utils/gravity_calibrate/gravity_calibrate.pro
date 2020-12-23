@@ -4,7 +4,6 @@ CONFIG -= app_bundle
 CONFIG -= qt
 TARGET = gravity_calib
 
-INCLUDEPATH += /usr/local/include/eigen3
 LIBS += $$PWD/lib/libGravity.so $$PWD/lib/libMathAlg.so $$PWD/lib/lib_Matrix.so
 
 SOURCES += \
@@ -13,3 +12,5 @@ SOURCES += \
 
 HEADERS += \
     $$PWD/src/trajectory_io.h
+
+QMAKE_CXXFLAGS += $$system(pkg-config --cflags eigen3)
