@@ -3,3 +3,6 @@
 2020-12-16 17:37:17 louwei execute ./start.sh [INFO ] script abs path: /home/louwei/Downloads/robot_controller_install/RobotServer/bin
 2020-12-16 17:37:17 louwei execute ./start.sh [INFO ] auboControllerServer running ... 
 2020-12-16 17:37:18 louwei execute ./start.sh [INFO ] 8899 LISTEN, auboControllerServer start finish.
+2020-12-24 17:55:40 louwei execute ./start_debug.sh [INFO ] script run ...
+2020-12-24 17:55:40 louwei execute ./start_debug.sh [INFO ] script relative path: .
+2020-12-24 17:55:40 louwei execute ./start_debug.sh [INFO ] script abs path: /home/louwei/arcs/aubo_driver_guide/release/robot_controller_install_4.10/RobotServer/bin

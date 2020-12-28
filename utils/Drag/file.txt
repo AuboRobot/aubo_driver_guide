@@ -1,0 +1,75 @@
+/*****************************************************************************
+*
+* FUNCTION:			File_open
+*
+* DESCRIPTION:文件打开。
+*
+*  This is the main program module.
+*
+\*****************************************************************************/
+#pragma region File_open
+int File_open(std::ofstream& my, char *name)
+{
+	char *filename_t = File_NameC(name);
+	File_cread(name);
+	my.open(filename_t, std::ios::trunc);
+	my.setf(std::ios::fixed, std::ios::floatfield);  // 设定为 fixed 模式，以小数点表示浮点数
+	my.precision(6);  // 设置精度 6
+	if (!my.is_open()) //判断如果文件指针为空
+	{
+		printf("File cannot open!");
+		return 0;//在以0的形式退出，必须在文件开头有#include <stdlib.h>,stdlib 头文件即standard library标准库头文件
+	}
+	return 100;
+}
+#pragma endregion
+/*****************************************************************************
+*
+* FUNCTION:			File_NameC
+*
+* DESCRIPTION:拼接文档名字符串
+*  This is the main program module.
+*
+\*****************************************************************************/
+#pragma region File_NameC
+char* File_NameC(char* name)
+{
+	static char filename[100];
+	char* filehead = "C:\\Users\\User\\Desktop\\UR_Motor_Control\\data\\";
+	char* fileDelimiter = "\\";
+	char* fileend = ".txt";
+	char* name1 = Obtain_Current_Time(name);
+	snprintf(filename, sizeof(filename), "%s%s%s%s%s", filehead,name, fileDelimiter, name1, fileend);
+	return filename;
+}
+#pragma endregion 
+/*****************************************************************************
+*
+* FUNCTION:			Obtain_Current_Time
+*
+* DESCRIPTION:获取当前系统时间
+*  This is the main program module.
+*
+\*****************************************************************************/
+#pragma region Obtain_Current_Time
+char *Obtain_Current_Time(char *name)
+{
+	time_t rawtime;
+	struct tm *ptminfo;
+	char s[50];
+	strcpy(s, name);
+	int len = strlen(s) + 17;
+	static char res[50];
+	time(&rawtime);
+	ptminfo = localtime(&rawtime);
+	/*printf("current: %02d-%02d-%02d %02d:%02d:%02d\n",
+	ptminfo->tm_year + 1900, ptminfo->tm_mon + 1, ptminfo->tm_mday,
+	ptminfo->tm_hour, ptminfo->tm_min, ptminfo->tm_sec);*/
+	snprintf(res, len, "%s%02d-%02d-%02d-%02d-%02d-%02d\n",name,
+		ptminfo->tm_year + 1900, ptminfo->tm_mon + 1, ptminfo->tm_mday,
+		ptminfo->tm_hour, ptminfo->tm_min, ptminfo->tm_sec);
+	printf("res：%s\n", res);
+
+	return res;
+}
+#pragma endregion 
