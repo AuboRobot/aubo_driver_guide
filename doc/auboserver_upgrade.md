@@ -41,7 +41,8 @@ cd robot_controller_install_4.10.0/auboFirmware
 
 ```bash
 cd release/aubo_scope
-./AuboScope.sh
+chmod +x ./aubo_scope*
+./aubo_scope*
 ```
 
 ## 4\. `AuboDriver`安装及使用
