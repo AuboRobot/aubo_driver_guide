@@ -1,24 +1,15 @@
 ## 0\. 准备
 
 1\. 系统需要升级到Ubuntu 16.04 x64，实时补丁RT_PREEMPT rt94
-2\. 拷贝`release/robot_controller_install_4.10`文件夹到工控机
+2\. 拷贝`release/aubo_server`文件夹到工控机
 
 ## 1\. 升级控制器程序
 
 ```bash
-# 启动
-cd robot_controller_install_4.10/RobotServer/bin
-sudo ./start.sh
-```
-
-注意：
-1\. 如果有新的`auboserver`软件释出，需要替换`robot_controller_install_4.10/RobotServer/bin`目录下`auboControllerServer`
-2\. 调试时运行`start_debug.sh`
-
-```
-# 启动
-cd robot_controller_install_4.10/RobotServer/bin
-sudo ./start_debug.sh
+# 启动，建议使用最新版本
+cd aubo_server
+chmod a+x ./auboControllerServer*
+sudo ./auboControllerServer*
 ```
 
 ## 2\. 升级接口板固件
@@ -35,19 +26,20 @@ cd robot_controller_install_4.10.0/auboFirmware
 注意：
 1\. 升级过程中不要断电  
 2\. 升级完成之后重新上电，等到Standby(黄灯)亮起时开机，这会需要稍微等一会
-3\. 需要先启动`auboserver`
+3\. 需要先启动`auboControllerServer`
 
 ## 3\. `AuboScope`示教器程序
 
 ```bash
 cd release/aubo_scope
-chmod +x ./aubo_scope*
+chmod a+x ./aubo_scope*
 ./aubo_scope*
 ```
 
 ## 4\. `AuboDriver`安装及使用
 
 ```bash
+# 请使用最新版本
 cd release/aubo_driver
 sudo dpkg -i aubo-driver_?.?.?_amd64.deb
 ```
