@@ -22,52 +22,91 @@ double distance(const std::vector<double> &a, const std::vector<double> &b)
     return sqrt(res);
 }
 
+void printJointModeData(std::string name, std::vector<JointMode> jointmode)
+{
+    std::vector<JointMode> m_jointmode = jointmode;
+    cout << name << endl;
+    for (auto iter = m_jointmode.begin(); iter != m_jointmode.end(); iter++) {
+        cout << (int)*iter << ", ";
+    }
+    cout << "" << endl;
+}
+
+void printVectorData(std::string name, std::vector<double> data)
+{
+    std::vector<double> m_data = data;
+    cout << "" << endl;
+    cout << name << endl;
+    for (auto iter = m_data.begin(); iter != m_data.end(); iter++) {
+        cout << *iter << ", ";
+    }
+    cout << "" << endl;
+}
+
 void getJointData(AuboDriver *m_instance)
 {
+    std::cout << " " << std::endl << "-----01getJointData" << std::endl;
     if (0 == m_instance->getJointPositions().size()) {
         m_instance->syncRtdeTransmission(0, 50);
     }
-    std::vector<double> m_joint = m_instance->getJointPositions();
-    for (auto iter = m_joint.begin(); iter != m_joint.end(); iter++) {
-        cout << *iter << endl;
-    }
-    cout << "" << endl;
-    m_instance->getJointVelocities();
-    m_instance->getJointCurrents();
-    m_instance->getJointVelocities();
-    m_instance->getTcpForce();
-    m_instance->getTcpPose();
-    m_instance->getTcpSpeed();
+
+    printVectorData("JointPositions", m_instance->getJointPositions());
+    printVectorData("JointVelocities", m_instance->getJointVelocities());
+    printVectorData("JointCurrents", m_instance->getJointCurrents());
+    printVectorData("JointTargetPositions",
+                    m_instance->getJointTargetPositions());
+    printVectorData("JointTargetVelocities",
+                    m_instance->getJointTargetVelocities());
+    printVectorData("JointTargetCurrents",
+                    m_instance->getJointTargetCurrents());
+    printVectorData("JointTemperatures", m_instance->getJointTemperatures());
+    printVectorData("JointVoltages", m_instance->getJointVoltages());
+    printJointModeData("JointModes", m_instance->getJointModes());
 }
 
 void getRunTimeMachine(AuboDriver *m_instance)
 {
-    std::cout << "getRunTimeMachine" << std::endl;
+    std::cout << " " << std::endl << "-----02getRunTimeMachine" << std::endl;
 }
 
 void getTcpData(AuboDriver *m_instance)
 {
-    std::cout << "getTcpData" << std::endl;
+    std::cout << " " << std::endl << "-----03getTcpData" << std::endl;
+    printVectorData("TcpForce", m_instance->getTcpForce());
+    printVectorData("TcpPose", m_instance->getTcpPose());
+    printVectorData("TcpSpeed", m_instance->getTcpSpeed());
+    //    m_instance->getTcpForce();
+    //    m_instance->getTcpPose();
+    //    m_instance->getTcpSpeed();
 }
 
 void getMasterBoard(AuboDriver *m_instance)
 {
-    std::cout << "getmasterBoard" << std::endl;
+    std::cout << " " << std::endl << "-----04getmasterBoard" << std::endl;
+    // 接口抛出异常 ValueExpired
+    // m_instance->getRobotVoltage();
+    // m_instance->getRobotCurrent();
 }
 
 void getToolData(AuboDriver *m_instance)
 {
-    std::cout << "getToolData" << std::endl;
+    std::cout << " " << std::endl << "-----05getToolData" << std::endl;
+    // 大小为0
+    // printVectorData("ToolAnalogInput", m_instance->getToolAnalogInput());
+    std::cout << "ToolVoltage: " << m_instance->getToolVoltage() << std::endl;
+    // 接口抛出异常 ValueExpired
+    // m_instance->getToolCurrent();
+    // m_instance->getIoCurrent();
 }
 
 void getRegisterData(AuboDriver *m_instance)
 {
-    std::cout << "getRegisterData" << std::endl;
+    std::cout << " " << std::endl << "-----06getRegisterData" << std::endl;
 }
 
 void setRtdeRealData(AuboDriver *m_instance)
 {
-    std::cout << "setRtdeData" << std::endl;
+    std::cout << " " << std::endl << "-----07setRtdeData " << std::endl;
 }
 
 void setRtdeData(AuboDriver *m_instance, std::vector<std::vector<double>> traj)
@@ -119,7 +158,16 @@ int main()
 
     if (aubo_driver->login("user", "111", 50)) {
         cout << "login success" << endl;
+
+        aubo_driver->setRobotPowerOn();
+        aubo_driver->setRobotOperational();
+
         vector<string> name;
+        name.push_back("target_q");
+        name.push_back("target_qd");
+        name.push_back("target_qdd");
+        name.push_back("target_current");
+        name.push_back("target_moment");
         name.push_back("actual_q");
         name.push_back("actual_qd");
         name.push_back("actual_TCP_force");
@@ -127,10 +175,9 @@ int main()
         name.push_back("actual_TCP_pose");
         name.push_back("actual_current");
         name.push_back("actual_joint_voltage");
-        //        name.push_back("joint_control_output");
-        //        name.push_back("actual_joint_voltage");
-        //        name.push_back("joint_temperatures");
-        //        name.push_back("joint_mode");
+        name.push_back("joint_control_output");
+        name.push_back("joint_temperatures");
+        name.push_back("joint_mode");
         aubo_driver->setRtdeOutputRecipe(0, name, 200);
         aubo_driver->startRtdeTransmission(0, bind(getJointData, aubo_driver));
         aubo_driver->syncRtdeTransmission(0, 50);
@@ -221,29 +268,28 @@ int main()
         aubo_driver->syncRtdeTransmission(5, 50);
 
         name.clear();
-        name.push_back("speed_slider_mask");
-        name.push_back("speed_slider_fraction");
-        name.push_back("standard_digital_output_mask");
-        name.push_back("standard_digital_output");
-        name.push_back("configurable_digital_output_mask");
-        name.push_back("configurable_digital_output");
-        name.push_back("tool_digital_output_mask");
-        name.push_back("tool_digital_output");
-        name.push_back("standard_analog_output_mask");
-        name.push_back("standard_analog_output_type");
-        name.push_back("standard_analog_output_0");
-        name.push_back("standard_analog_output_1");
-        name.push_back("debug");
-        name.push_back("input_bit_registers0_to_31");
-        name.push_back("input_bit_registers32_to_63");
-        name.push_back("input_bit_registers64_to_127");
+        // name.push_back("speed_slider_mask");
+        // name.push_back("speed_slider_fraction");
+        // name.push_back("standard_digital_output_mask");
+        // name.push_back("standard_digital_output");
+        // name.push_back("configurable_digital_output_mask");
+        // name.push_back("configurable_digital_output");
+        // name.push_back("tool_digital_output_mask");
+        // name.push_back("tool_digital_output");
+        // name.push_back("standard_analog_output_mask");
+        // name.push_back("standard_analog_output_type");
+        // name.push_back("standard_analog_output_0");
+        // name.push_back("standard_analog_output_1");
+        // name.push_back("debug");
+        // name.push_back("input_bit_registers0_to_31");
+        // name.push_back("input_bit_registers32_to_63");
+        // name.push_back("input_bit_registers64_to_127");
         name.push_back("input_int_registers");
         name.push_back("input_double_registers");
-        //        aubo_driver->setRtdeOutputRecipe(6, name, 200);
-        //        aubo_driver->startRtdeTransmission(6,
-        //                                           bind(setRtdeRealData,
-        //                                           aubo_driver));
-        //        aubo_driver->syncRtdeTransmission(6, 50);
+        aubo_driver->setRtdeOutputRecipe(6, name, 200);
+        aubo_driver->startRtdeTransmission(6,
+                                           bind(setRtdeRealData, aubo_driver));
+        aubo_driver->syncRtdeTransmission(6, 50);
 
         auto first_point = traj[0];
         aubo_driver->moveJoint(first_point, 1, 90 * M_PI / 180.);
