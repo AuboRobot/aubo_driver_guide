@@ -4,7 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 INCLUDEPATH += /usr/arcs/include
-LIBS += -L/usr/arcs/lib -laubo_driver -lpthread
+
+LIBS += -L/usr/arcs/lib -laubo_driver -lpthread -ldl
 
 SOURCES += \
         main.cpp
