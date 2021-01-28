@@ -6,3 +6,17 @@
 2020-12-24 17:55:40 louwei execute ./start_debug.sh [INFO ] script run ...
 2020-12-24 17:55:40 louwei execute ./start_debug.sh [INFO ] script relative path: .
 2020-12-24 17:55:40 louwei execute ./start_debug.sh [INFO ] script abs path: /home/louwei/arcs/aubo_driver_guide/release/robot_controller_install_4.10/RobotServer/bin
+2020-12-30 17:26:49 root execute ./start_debug.sh [INFO ] script run ...
+2020-12-30 17:26:49 root execute ./start_debug.sh [INFO ] script relative path: .
+2020-12-30 17:26:49 root execute ./start_debug.sh [INFO ] script abs path: /home/louwei/arcs/aubo_driver_guide/release/robot_controller_install_4.10/RobotServer/bin
+2020-12-30 17:26:49 root execute ./start_debug.sh [WARN ] auboControllerServer already running
+2020-12-30 17:27:25 root execute ./start_debug.sh [INFO ] script run ...
+2020-12-30 17:27:25 root execute ./start_debug.sh [INFO ] script relative path: .
+2020-12-30 17:27:25 root execute ./start_debug.sh [INFO ] script abs path: /home/louwei/arcs/aubo_driver_guide/release/robot_controller_install_4.10/RobotServer/bin
+2020-12-30 17:27:25 root execute ./start_debug.sh [WARN ] auboControllerServer already running
+2020-12-30 17:28:20 root execute ./start_debug.sh [INFO ] script run ...
+2020-12-30 17:28:20 root execute ./start_debug.sh [INFO ] script relative path: .
+2020-12-30 17:28:20 root execute ./start_debug.sh [INFO ] script abs path: /home/louwei/arcs/aubo_driver_guide/release/robot_controller_install_4.10/RobotServer/bin
+2020-12-30 17:29:10 root execute ./start_debug.sh [INFO ] script run ...
+2020-12-30 17:29:10 root execute ./start_debug.sh [INFO ] script relative path: .
+2020-12-30 17:29:10 root execute ./start_debug.sh [INFO ] script abs path: /home/louwei/arcs/aubo_driver_guide/release/robot_controller_install_4.10/RobotServer/bin
