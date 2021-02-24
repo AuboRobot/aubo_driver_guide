@@ -5,7 +5,7 @@
 
 ## 1\. 升级控制器程序
 
-```bash
+```
 # 启动，建议使用最新版本
 cd aubo_server
 chmod a+x ./auboControllerServer*
@@ -14,7 +14,7 @@ sudo ./auboControllerServer*
 
 ## 2\. 升级接口板固件
 
-```bash
+```
 # 切换到固件升级目录
 cd robot_controller_install_4.10.0/auboFirmware
 # 手动升级接口板Master固件
@@ -30,7 +30,7 @@ cd robot_controller_install_4.10.0/auboFirmware
 
 ## 3\. `AuboScope`示教器程序
 
-```bash
+```
 cd release/aubo_scope
 chmod a+x ./aubo_scope*
 ./aubo_scope*
@@ -52,10 +52,10 @@ chmod a+x ./aubo_scope*
 
  将 aubo-driver_?.?.?.zip 下载到release/aubo_driver目录下
 
-```bash
+```
 cd release/aubo_driver
-chmod u+x unzip.sh
-sudo ./unzip.sh aubo-driver_?.?.?.zip
+chmod u+x deploy.sh
+sudo ./deploy.sh aubo-driver_?.?.?.zip
 
 ```
 

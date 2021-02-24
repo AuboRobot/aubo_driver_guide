@@ -26,31 +26,31 @@ fi
 cd    $File_DIR
 
 #删除旧头文件和库文件(链接符)
-if [ -L "/usr/arcs/lib/libaubo_driver*" ];then
-  sudo rm /usr/arcs/lib/libaubo_driver*
+if [ -h "${HOME}/.aubo/lib/libaubo_driver*" ];then
+  rm ${HOME}/.aubo/lib/libaubo_driver*
 else
-  if [ ! -d "/usr/arcs/" ];then
-  	sudo mkdir /usr/arcs/
+  if [ ! -d "${HOME}/aubo/" ];then
+  	mkdir ${HOME}/.aubo/
   fi
-  if [ ! -d "/usr/arcs/lib" ];then
-  	sudo mkdir /usr/arcs/lib
+  if [ ! -d "${HOME}/aubo/lib/" ];then
+  	mkdir ${HOME}/.aubo/lib/
   fi
 fi
 
-if [ -d "/usr/arcs/include/aubo_driver/" ];then
-  sudo rm -rf /usr/arcs/include/aubo_driver
+if [ -d "${HOME}/aubo/include/aubo_driver/" ];then
+  rm -rf ${HOME}/.aubo/include/aubo_driver/
 else
-  if [ ! -d "/usr/arcs/" ];then
-  	sudo mkdir /usr/arcs/
+  if [ ! -d "${HOME}/aubo/" ];then
+  	mkdir ${HOME}/.aubo/
   fi
-  if [ ! -d "/usr/arcs/include" ];then
-  	sudo mkdir /usr/arcs/include
+  if [ ! -d "${HOME}/.aubo/include/" ];then
+  	mkdir ${HOME}/.aubo/include/
   fi
 fi
 
 
 #拷贝新头文件和库文件
-sudo cp $PWD/lib/libaubo_driver* /usr/arcs/lib/
-sudo cp -rf $PWD/include/aubo_driver/ /usr/arcs/include/
+cp -d $PWD/lib/libaubo_driver* ${HOME}/.aubo/lib/
+cp -rf $PWD/include/aubo_driver/ ${HOME}/.aubo/include/
 
 echo "install successful!"

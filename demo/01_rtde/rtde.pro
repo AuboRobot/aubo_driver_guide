@@ -3,8 +3,10 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-INCLUDEPATH += /usr/arcs/include
-LIBS += -L/usr/arcs/lib -laubo_driver -lpthread -ldl
+HOME_DIR = $$system(echo $HOME)
+
+INCLUDEPATH += $$HOME_DIR/.aubo/include
+LIBS += -L$$HOME_DIR/.aubo/lib -laubo_driver -lpthread -ldl
 
 HEADERS += trajectory_io.h
 

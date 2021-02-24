@@ -4,10 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 TARGET = play_traj
 
-INCLUDEPATH += /usr/arcs/include
-LIBS += -L/usr/arcs/lib -laubo_driver -lpthread
+HOME_DIR = $$system(echo $HOME)
+INCLUDEPATH += $$HOME_DIR/.aubo/include
+LIBS += -L$$HOME_DIR/.aubo/lib -laubo_driver -lpthread -ldl
 
-INCLUDEPATH +=
 SOURCES += \
     $$PWD/main.cpp \
     $$PWD/trajectory_io.cpp

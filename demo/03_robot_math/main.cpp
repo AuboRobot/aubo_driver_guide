@@ -2,7 +2,10 @@
 #include <aubo_driver/aubo_driver.h>
 #include <string.h>
 
+#ifndef M_PI
 #define M_PI 3.14159265358979323846 /* pi */
+#endif
+
 using namespace arcs::aubo_driver;
 
 int main(int argc, char *argv[])

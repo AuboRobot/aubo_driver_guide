@@ -6,9 +6,10 @@
 *.a
 *.la
 *.lai
-#*.so
+*.so
 *.dll
 *.dylib
+
 
 # Qt-es
 
@@ -59,6 +60,9 @@ AuboScope
 data_model_test
 feature_contribution_model_test
 
+
+#file
+*.zip
 
 
 
