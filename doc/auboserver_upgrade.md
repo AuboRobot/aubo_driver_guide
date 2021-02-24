@@ -38,9 +38,26 @@ chmod a+x ./aubo_scope*
 
 ## 4\. `AuboDriver`安装及使用
 
+##### 版本号说明
+
+​	主版本号.次版本号.修订号	
+
+​	主版本号(MAJOR version)：出现不兼容的API变化
+​	次版本号(MINOR version)：新增向后兼容的功能
+​	修订号(补丁版本号，PATCH version)：修复向后兼容的bug安装方式
+
+​    **要注意：主版本号为0的时候，接口函数可能会变化的风险，容易发生不兼容情况。**
+
+##### 安装
+
+ 将 aubo-driver_?.?.?.zip 下载到release/aubo_driver目录下
+
 ```bash
-# 请使用最新版本
 cd release/aubo_driver
-sudo dpkg -i aubo-driver_?.?.?_amd64.deb
+chmod u+x unzip.sh
+sudo ./unzip.sh aubo-driver_?.?.?.zip
+
 ```
+
+
 
