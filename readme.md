@@ -1,6 +1,6 @@
-# AuboDriver使用
+# AuboDriver使用以及环境部署
 
-文档前往doc文件夹查看
+前往doc文件夹查看auboserver_upgrade.md文件
 
 ## 版本对应  
 AuboServer  -> aubo_driver   

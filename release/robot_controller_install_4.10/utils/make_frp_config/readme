@@ -1,8 +1,0 @@
-
-
-根据ROBOT SN 生成frp 的配置文件
-
-配置文件为：/root/AuboRobot/services/frp/frpc.ini
-
-脚本运行:./make_frpc_config.sh
-

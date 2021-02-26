@@ -1,9 +1,0 @@
-[Desktop Entry]
-Exec=/root/AuboRobot/agent/agent_monitor.sh
-Name=agent_monitor
-Comment=agent_monitor
-Terminal=false
-Type=Application
-StartupNotify=true
-Categories=Application
-Name[en_US]=agent_monitor
