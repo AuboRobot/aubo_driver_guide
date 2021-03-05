@@ -19,21 +19,20 @@ dpkg -i linux-image-4.14.195-rt94_4.14.195-rt94-1_amd64.deb
 uname -a
 ```
 
-2.release文件下载：AuboController, robot_controller_install, aubo_driver, aubo_scope.
+2.release文件下载：AuboController,   robot_controller_install,   aubo_driver,   aubo_scope.
 
 ##   
 
-## 1\. 升级控制器程序
+## 1\. 升级控制器程序(控制柜端启动)
 
 克隆项目：
 
 ```bash
 git clone https://github.com/AuboRobot/aubo_driver_guide.git
 cd aubo_driver_guide
-mkdir release
 ```
 
-将准备工作中下载到的文件拷贝到release文件夹下
+将准备工作中下载到的文件拷贝到 install 文件夹下
 
 提示：克隆使用链接https://gitclone.com/github.com/AuboRobot/aubo_driver_guide.git速度会加快
 
@@ -47,7 +46,7 @@ sudo ./auboControllerServer*
 
 
 
-## 2\. 升级接口板固件
+## 2\. 升级接口板固件(控制柜端启动)
 
 从终端进入到 相应版本的 robot_controller_install 路径下
 
@@ -67,7 +66,7 @@ cd auboFirmware/
 
 
 
-## 3\. `AuboScope`示教器程序
+## 3\. `AuboScope`示教器程序(用户端启动)
 
 从终端进入到 相应版本的 aubo_scope 路径下
 
@@ -78,7 +77,7 @@ chmod a+x ./aubo_scope*
 
 
 
-## 4\. `AuboDriver`安装及使用
+## 4\. `AuboDriver`安装及使用(用户端启动)
 
 ##### 版本号说明
 
@@ -97,7 +96,7 @@ chmod a+x ./aubo_scope*
 ```
 cd install/
 chmod u+x deploy.sh
-sudo ./deploy.sh ../release/aubo-driver_?.?.?.zip
+sudo ./deploy.sh aubo-driver_?.?.?.zip
 ```
 
 

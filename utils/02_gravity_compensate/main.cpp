@@ -136,18 +136,17 @@ void printUsage(char *pname)
 
 Grav read_fileide()
 {
-    Grav  cgs;
+    Grav cgs;
 
-    const char* filename = "ideconfig.txt";
+    const char *filename = "ideconfig.txt";
     std::ifstream myfile(filename);
 
     if (!myfile.is_open()) //判断如果文件指针为空
     {
         printf("File cannot open!");
-        return cgs;//在以0的形式退出，必须在文件开头有#include <stdlib.h>,stdlib 头文件即standard library标准库头文件
-    }
-    else
-    {
+        return cgs; //在以0的形式退出，必须在文件开头有#include
+                    //<stdlib.h>,stdlib 头文件即standard library标准库头文件
+    } else {
         myfile >> cgs.Fx0;
         myfile >> cgs.Fy0;
         myfile >> cgs.Fz0;
@@ -165,7 +164,6 @@ Grav read_fileide()
         return cgs;
     }
 }
-
 
 // 运行离线轨迹
 int main(int argc, char *argv[])
@@ -218,7 +216,8 @@ int main(int argc, char *argv[])
     AsyncBuf buffer(out_file, app);
     std::ostream astream(&buffer);
     // 连接到控制器软件
-    aubo_driver->connectToServer(ip, port);
+    aubo_driver->connectToServer(
+        ip, port); //不传参数ip默认为127.0.0.1,如果需要改变需传参
 
     if (aubo_driver->login("offline_trajectory", "111", 50)) {
         std::cout << "user login succeed" << std::endl;
@@ -242,25 +241,27 @@ int main(int argc, char *argv[])
         Gravity gravity;
         auto com = read_fileide();
         GlideFileter<10> filter(6);
-        aubo_driver->startRtdeTransmission(0, [aubo_driver, &astream, &filter, &gravity, &com] {
-            // astream << aubo_driver->getJointPositions() << ", ";
-            // astream << aubo_driver->getJointTargetPositions() << ", ";
-            // astream << aubo_driver->getJointVelocities() << ", ";
-            // astream << aubo_driver->getJointCurrents() << ", ";
-            // astream << aubo_driver->getJointTemperatures() << ", ";
-            std::vector<double> pose = aubo_driver->getTcpPose();
-            std::vector<double> force = aubo_driver->getTcpForce();
-            std::vector<double> filtered_force = filter.eval(force);
-            std::vector<double> comp_force(0, 0.);
+        aubo_driver->startRtdeTransmission(
+            0, [aubo_driver, &astream, &filter, &gravity, &com] {
+                // astream << aubo_driver->getJointPositions() << ", ";
+                // astream << aubo_driver->getJointTargetPositions() << ", ";
+                // astream << aubo_driver->getJointVelocities() << ", ";
+                // astream << aubo_driver->getJointCurrents() << ", ";
+                // astream << aubo_driver->getJointTemperatures() << ", ";
+                std::vector<double> pose = aubo_driver->getTcpPose();
+                std::vector<double> force = aubo_driver->getTcpForce();
+                std::vector<double> filtered_force = filter.eval(force);
+                std::vector<double> comp_force(0, 0.);
 
-            gravity.Gravity_compensation_Least(com, pose, filtered_force, comp_force);
-            astream << pose << ", ";
-            astream << force << ", ";
-            astream << filtered_force << ", ";
-            astream << comp_force << ", ";
-            astream << "\n";
-            std::cout << comp_force << std::endl;
-        });
+                gravity.Gravity_compensation_Least(com, pose, filtered_force,
+                                                   comp_force);
+                astream << pose << ", ";
+                astream << force << ", ";
+                astream << filtered_force << ", ";
+                astream << comp_force << ", ";
+                astream << "\n";
+                std::cout << comp_force << std::endl;
+            });
         std::this_thread::sleep_for(std::chrono::seconds(duration));
         std::cout << "Record done, now flush to file" << std::endl;
 

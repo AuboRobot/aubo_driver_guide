@@ -141,7 +141,8 @@ int main()
     TrajectoryIo input("record3.offt");
     auto traj = input.parse();
 
-    auto aubo_driver = createAuboDriver();
+    auto aubo_driver =
+        createAuboDriver(); //不传参数ip默认为127.0.0.1,如果需要改变需传参
     std::thread set_rtde_thread(setRtdeData, aubo_driver, traj);
 
     map<string, string> out_list = aubo_driver->getRtdeOutputList();

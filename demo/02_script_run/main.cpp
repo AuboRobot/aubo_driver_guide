@@ -18,7 +18,7 @@ void getLineNumber(AuboDriver *m_instance)
 
 int main()
 {
-    auto aubo_driver = createAuboDriver();
+    auto aubo_driver = createAuboDriver(); //不传参数ip默认为127.0.0.1,如果需要改变需传参
     aubo_driver->connectToServer();
     if (aubo_driver->login("usr", "111", 50)) {
         aubo_driver->downloadScript("script1.py");
