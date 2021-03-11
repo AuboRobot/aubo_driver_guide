@@ -128,7 +128,8 @@ int main(int argc, char *argv[])
     AsyncBuf buffer(out_file, app);
     std::ostream astream(&buffer);
     // 连接到控制器软件
-    aubo_driver->connectToServer(ip, port);
+    aubo_driver->connectToServer(
+        ip, port); //不传参数ip默认为127.0.0.1,如果需要改变需传参
 
     if (aubo_driver->login("offline_trajectory", "111", 50)) {
         std::cout << "user login succeed" << std::endl;

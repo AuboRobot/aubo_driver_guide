@@ -74,6 +74,6 @@ int main(int argc, char *argv[])
         std::cout << "user login failed" << std::endl;
     }
 
-    aubo_driver->logout();
+    // aubo_driver->logout();
     return 0;
 }

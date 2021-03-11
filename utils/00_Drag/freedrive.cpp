@@ -31,7 +31,6 @@ std::vector<double> operator/(const std::vector<double> &a, const double &b)
     return res;
 }
 
-
 template <size_t N>
 class GlideFilter
 {
@@ -90,15 +89,17 @@ FreeDrive::~FreeDrive()
     join();
     delete real_robot_;
     real_robot_ = nullptr;
-//    delete sim_robot_;
-//    sim_robot_ = nullptr;
+    //    delete sim_robot_;
+    //    sim_robot_ = nullptr;
 }
 
 void FreeDrive::connectToRobot()
 {
-    real_robot_->connectToServer("192.168.100.100");
+    real_robot_->connectToServer(
+        "192.168.100.100"); //不传参数ip默认为127.0.0.1,如果需要改变需传参
     if (real_robot_->login("user", "111", 50)) {
-        std::cout << "Login to Real robot @ 192.168.100.100 SUCCEED" << std::endl;
+        std::cout << "Login to Real robot @ 192.168.100.100 SUCCEED"
+                  << std::endl;
         std::vector<std::string> names;
         names.push_back("actual_q");
         names.push_back("actual_TCP_pose");
@@ -108,10 +109,11 @@ void FreeDrive::connectToRobot()
         }
         real_robot_->startRtdeTransmission(0);
     } else {
-        std::cout << "Login to Real robot @ 192.168.100.100 FAILED" << std::endl;
+        std::cout << "Login to Real robot @ 192.168.100.100 FAILED"
+                  << std::endl;
     }
     real_robot_->syncRtdeTransmission(0, 50);
-    //real_robot_->setSim();
+    // real_robot_->setSim();
 
     usleep(5000);
     drag_.pose = real_robot_->getTcpPose();
@@ -121,7 +123,7 @@ void FreeDrive::connectToRobot()
 
 void FreeDrive::join()
 {
-    //sim_robot_->waitForTerminate();
+    // sim_robot_->waitForTerminate();
     real_robot_->waitForTerminate();
 }
 
@@ -150,38 +152,38 @@ std::ostream &operator<<(std::ostream &out, const std::vector<double> &a)
 
 void FreeDrive::control()
 {
-    double dt = 4.0/800; // 5ms
-    std::vector < double> senddata;
-    std::vector < double> changepose;
-    std::vector < double> limitpose;
+    double dt = 4.0 / 800; // 5ms
+    std::vector<double> senddata;
+    std::vector<double> changepose;
+    std::vector<double> limitpose;
     limitpose.resize(6);
     Grav Cs;
     Gravity CGra;
     Cs = drag_.read_fileide();
-    std::vector < double> GraResult;
-    //imp_.setStiffness(10);
+    std::vector<double> GraResult;
+    // imp_.setStiffness(10);
     AuboDriver *aubo_driver = real_robot_;
     GlideFilter<16> filter(6);
-    while(enable_)
-    {
+    while (enable_) {
         auto t_start = std::chrono::high_resolution_clock::now();
 
-        drag_.pose  = real_robot_->getTcpPose();
+        drag_.pose = real_robot_->getTcpPose();
         drag_.FT = filter.eval(real_robot_->getTcpForce());
-        //drag_.Judg_Filter(real_robot_->getTcpForce(), drag_.FT);
+        // drag_.Judg_Filter(real_robot_->getTcpForce(), drag_.FT);
 
-        std::cout << "Force " <<  drag_.FT << std::endl;
+        std::cout << "Force " << drag_.FT << std::endl;
         GraResult.clear();
-        CGra.Gravity_compensation_Least(Cs,drag_.pose,drag_.FT,GraResult);
+        CGra.Gravity_compensation_Least(Cs, drag_.pose, drag_.FT, GraResult);
         std::cout << "GraResult " << GraResult << std::endl;
 
         changepose.clear();
-        imp_.Impen_Inter(GraResult,drag_.ThresData,drag_.SensitiData,drag_.FdDrag,changepose);
+        imp_.Impen_Inter(GraResult, drag_.ThresData, drag_.SensitiData,
+                         drag_.FdDrag, changepose);
         std::cout << "changepose " << changepose << std::endl;
         limitpose.clear();
-        Limit_drive_.rectangle(drag_.pose,changepose,limitpose);
+        Limit_drive_.rectangle(drag_.pose, changepose, limitpose);
         senddata.clear();
-        drag_.printSend(drag_.pose,limitpose,senddata);
+        drag_.printSend(drag_.pose, limitpose, senddata);
 
         RtdeInputBuilderPtr builder = aubo_driver->getRtdeInputBuilder();
         builder->servoCartesian(senddata, 1);
@@ -190,10 +192,10 @@ void FreeDrive::control()
 
         auto t_stop = std::chrono::high_resolution_clock::now();
         auto t_duration = std::chrono::duration<double>(t_stop - t_start);
-        //printf("%f  ",t_duration);
-        if (t_duration.count() < dt)
-        {
-            std::this_thread::sleep_for(std::chrono::duration<double>(dt - t_duration.count()));
+        // printf("%f  ",t_duration);
+        if (t_duration.count() < dt) {
+            std::this_thread::sleep_for(
+                std::chrono::duration<double>(dt - t_duration.count()));
         }
     }
 }
